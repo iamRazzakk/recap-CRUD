@@ -1,5 +1,6 @@
-
+import { useState } from "react";
 const User = () => {
+    const [users, setUsers] = useState([])
     const handleSubmit = e => {
         e.preventDefault()
         const form = e.target;
@@ -12,7 +13,17 @@ const User = () => {
             password
         }
         console.log(myUser);
+        fetch('http://localhost:5000/users', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(myUser)
+        })
+            .then(res => res.json())
+            .then(data => setUsers(data))
     }
+    console.log(users);
     return (
         <div>
             <h1>Total User</h1>
